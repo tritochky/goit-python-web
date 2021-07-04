@@ -15,7 +15,7 @@ class SerializationInterface(ABC):
 
 class ListJsonSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = []
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -32,7 +32,7 @@ class ListJsonSerialization(SerializationInterface):
 
 class DictJsonSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = {}
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -49,7 +49,7 @@ class DictJsonSerialization(SerializationInterface):
 
 class TupleJsonSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = ()
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -66,7 +66,7 @@ class TupleJsonSerialization(SerializationInterface):
 
 class SetJsonSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = set()
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -84,7 +84,7 @@ class SetJsonSerialization(SerializationInterface):
 
 class ListPicklSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = []
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -101,7 +101,7 @@ class ListPicklSerialization(SerializationInterface):
 
 class DictPicklSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = {}
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -118,7 +118,7 @@ class DictPicklSerialization(SerializationInterface):
 
 class TuplePicklSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = ()
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
@@ -135,7 +135,7 @@ class TuplePicklSerialization(SerializationInterface):
 
 class SetPicklSerialization(SerializationInterface):
     def __init__(self, data, file_name):
-        self.data = {}
+        self.data = data
         self.file_name = ''
 
     def serialize(self):
