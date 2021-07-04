@@ -4,12 +4,6 @@
         self.children_number += 1
         return type.__new__(self, name, bases, attrs)
 
-    def __init__(self, name, bases, attrs):
-        super().__init__(name, bases, attrs)
-
-    def __call__(self, *args, **kwargs):
-        return super().__call__(*args, **kwargs)
-
 
 Meta.children_number = 0
 
