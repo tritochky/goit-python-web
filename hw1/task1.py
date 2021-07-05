@@ -16,90 +16,114 @@ class SerializationInterface(ABC):
 class ListJsonSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.json'
 
     def serialize(self, data):
-        return json.dumps(data)
+        with open(self.file_name, "w") as fh:
+            json.dump(data, fh)
 
-    def deserialize(self, packed):
-        return json.loads(packed)
+    def deserialize(self):
+        with open(self.file_name, "r") as fh:
+            return json.load(fh)
         
 
 class DictJsonSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.json'
 
     def serialize(self, data):
-        return json.dumps(data)
+        with open(self.file_name, "w") as fh:
+            json.dump(data, fh)
 
-    def deserialize(self, packed):
-        return json.loads(packed)
+    def deserialize(self):
+        with open(self.file_name, "r") as fh:
+            return json.load(fh)
 
 
 class TupleJsonSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.json'
 
     def serialize(self, data):
-        return json.dumps(data)
+        with open(self.file_name, "w") as fh:
+            json.dump(data, fh)
 
-    def deserialize(self, packed):
-        return tuple(json.loads(packed))
+    def deserialize(self):
+        with open(self.file_name, "r") as fh:
+            return tuple(json.load(fh))
 
 
 class SetJsonSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.json'
 
     def serialize(self, data):
-        #self.data = list(data)
-        return json.dumps(list(data))
+        data = list(data)
+        with open(self.file_name, "w") as fh:
+            json.dump(data, fh)
 
-    def deserialize(self, packed):
-        return set(json.loads(packed))
+    def deserialize(self):
+        with open(self.file_name, "r") as fh:
+            return set(json.load(fh))
 
 
 class ListBinSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.bin'
 
     def serialize(self, data):
-        return pickle.dumps(data)
+        with open(self.file_name, "wb") as fh:
+            pickle.dump(data, fh)
 
-    def deserialize(self, packed):
-        return pickle.loads(packed)
+    def deserialize(self):
+        with open(self.file_name, "rb") as fh:
+            return pickle.load(fh)
 
 
 class DictBinSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.bin'
 
     def serialize(self, data):
-        return pickle.dumps(data)
+        with open(self.file_name, "wb") as fh:
+            pickle.dump(data, fh)
 
-    def deserialize(self, packed):
-        return pickle.loads(packed)
+    def deserialize(self):
+        with open(self.file_name, "rb") as fh:
+            return pickle.load(fh)
 
 
 class TupleBinSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.bin'
 
     def serialize(self, data):
-        return pickle.dumps(data)
+        with open(self.file_name, "wb") as fh:
+            pickle.dump(data, fh)
 
-    def deserialize(self, packed):
-        return pickle.loads(packed)
+    def deserialize(self):
+        with open(self.file_name, "rb") as fh:
+            return pickle.load(fh)
 
 
 class SetBinSerialization(SerializationInterface):
     def __init__(self, data=None):
         self.data = data
+        self.file_name = 'data.bin'
 
     def serialize(self, data):
-        return pickle.dumps(data)
+        with open(self.file_name, "wb") as fh:
+            pickle.dump(data, fh)
 
-    def deserialize(self, packed):
-        return pickle.loads(packed)
+    def deserialize(self):
+        with open(self.file_name, "rb") as fh:
+            return pickle.load(fh)
 
 
 if __name__ == '__main__':
@@ -110,43 +134,42 @@ if __name__ == '__main__':
     #file_json = 'data.json'
     #file_bin = 'data.bin'
 
-    packed = ListJsonSerialization().serialize(data_list)
-    unpacked = ListJsonSerialization().deserialize(packed)
+    ListJsonSerialization().serialize(data_list)
+    unpacked = ListJsonSerialization().deserialize()
     assert unpacked == data_list, 'Wrong deserialization!'
     print(f'Format JSON: {unpacked}')
 
-    packed = DictJsonSerialization().serialize(data_dict)
-    unpacked = DictJsonSerialization().deserialize(packed)
+    DictJsonSerialization().serialize(data_dict)
+    unpacked = DictJsonSerialization().deserialize()
     assert unpacked == data_dict, 'Wrong deserialization!'
     print(f'Format JSON: {unpacked}')
 
-    packed = TupleJsonSerialization().serialize(data_tuple)
-    unpacked = TupleJsonSerialization().deserialize(packed)
+    TupleJsonSerialization().serialize(data_tuple)
+    unpacked = TupleJsonSerialization().deserialize()
     assert unpacked == data_tuple, 'Wrong deserialization!'
     print(f'Format JSON: {unpacked}')
 
-    packed = SetJsonSerialization().serialize(data_set)
-    unpacked = SetJsonSerialization().deserialize(packed)
+    SetJsonSerialization().serialize(data_set)
+    unpacked = SetJsonSerialization().deserialize()
     assert unpacked == data_set, 'Wrong deserialization!'
     print(f'Format JSON: {unpacked}')
 
-    packed = ListBinSerialization().serialize(data_list)
-    unpacked = ListBinSerialization().deserialize(packed)
+    ListBinSerialization().serialize(data_list)
+    unpacked = ListBinSerialization().deserialize()
     assert unpacked == data_list, 'Wrong deserialization!'
     print(f'Format BIN: {unpacked}')
 
-    packed = DictBinSerialization().serialize(data_dict)
-    unpacked = DictBinSerialization().deserialize(packed)
+    DictBinSerialization().serialize(data_dict)
+    unpacked = DictBinSerialization().deserialize()
     assert unpacked == data_dict, 'Wrong deserialization!'
     print(f'Format BIN: {unpacked}')
 
-    packed = TupleBinSerialization().serialize(data_tuple)
-    unpacked = TupleBinSerialization().deserialize(packed)
+    TupleBinSerialization().serialize(data_tuple)
+    unpacked = TupleBinSerialization().deserialize()
     assert unpacked == data_tuple, 'Wrong deserialization!'
     print(f'Format BIN: {unpacked}')
 
-    packed = SetBinSerialization().serialize(data_set)
-    unpacked = SetBinSerialization().deserialize(packed)
+    SetBinSerialization().serialize(data_set)
+    unpacked = SetBinSerialization().deserialize()
     assert unpacked == data_set, 'Wrong deserialization!'
     print(f'Format BIN: {unpacked}')
-
