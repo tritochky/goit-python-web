@@ -6,7 +6,6 @@ from datetime import datetime
 class Field:
     def __init__(self, value):
         self.__value = value
-        # self.value=value
 
     @property
     def value(self):
@@ -78,7 +77,7 @@ class Id(Field):
 
 class Email(Field):
     def __init__(self, email):
-        self.email=email
+        self.email = email
 
 class Birthday(Field):
     def __init__(self, value):
@@ -102,15 +101,15 @@ class Record:
         self.id_n = id_n
         self.phones = []
         self.birthday = None
-        self.address=None
-        self.email=None
-        self.tags=None
+        self.address = None
+        self.email = None
+        self.tags = None
         self.user = {'Id': self.id_n, 'Name': name.name,
                      'Phones': self.phones, 
                      'Birthday': self.birthday, 
-                     'Address':self.address, 
-                     'E-mail':self.email, 
-                     'Tags':self.tags}
+                     'Address': self.address, 
+                     'E-mail': self.email, 
+                     'Tags': self.tags}
 
     def add_address(self, address):
         self.address = address
