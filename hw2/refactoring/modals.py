@@ -1,0 +1,2 @@
+﻿class VariableModal:
+    pass
