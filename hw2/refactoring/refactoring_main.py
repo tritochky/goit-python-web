@@ -1,7 +1,7 @@
-﻿import os
+import os
 import pathlib
 import pickle
-#import json
+import json
 import re
 
 from datetime import datetime, timedelta, date
@@ -26,58 +26,49 @@ try:
 except:
     from views import *
 
+from main import handler
 
-def error_handler(func):
+
+'''def error_handler(func):
     def inner(*args):
         try:
             result = func(*args)
             return result
         except:
-            #print('я внутри error_handler ')
             result = input_error()
             return result
-    return inner
+    return inner'''
 
 
-@error_handler
+# @error_handler
 def main():
-    global path, book, notes_book, esc_e
-    esc_e = True
+    model = VariableModal()
+    view = ConsoleView()
     while True:
-        print(100*'_')
-        print('What do you want to do?\nYou can use commands:\n')
-        print('1.  "load" to load AddressBook and NotesBook\n2.  "new" to create new Book\n3.  "exit"/"close" to close application:')
-        command = str(input())
-        if command == "load" or command == "дщфв" or command == "1":
-            print(r'Please write the full path to file with addressbook and notebook. Example: "d:\test\book.txt":')
-            path = str(input())
+        view.greet()
+        command = view.start_work()
+        for key in STARTING_COMMANDS:
+            if command in key:
+                command = STARTING_COMMANDS[key]
+        if command == 'load':
+            path = view.get_path_to_willing_file()
+            model = VariableModal(path)
             try:
-                with open(path, 'rb') as fh:
-                    book = pickle.load(fh)
-                    notes_book = pickle.load(fh)
-                    break
+                model.load_books()
+                break
             except:
-                print('Please write right path to file! This file is empty!')
-
-        elif command == 'new' or command == "туц" or command == "2":
-            print(
-                r'Please write the full path where to create file. Example: "d:\test\book.txt":')
-            path = str(input())
-            book = AddressBook()
-            notes_book = NotesBook()
+                view.report_wrong_path()
+        elif command == 'new':
+            path = view.get_path_to_new_file()
+            model = VariableModal(path)
             break
-
-        elif command == 'exit' or command == 'esc' or command == 'close' or command == 'учше' or command == "3":
-            esc_e = False
+        elif command == 'exit':
+            view.esc_e = False
             break
         else:
-            print('Wrong command.')
-
-    while esc_e:
-        print(100*'_')
-        user_inpu = input(
-            '   What do you want to do?\n   Type exact command you want to do, \n   "help" for list of commands.\n   "exit" to exit\n')
-
+            view.report_wrong_command()
+    while view.esc_e:
+        user_inpu = view.choose_command()
         user_inpu = user_inpu.lower()
         result = handler(user_inpu)
         if result:
@@ -86,6 +77,73 @@ def main():
             pass
         else:
             break
+
+
+STARTING_COMMANDS = {('load', 'дщфв', '1'): 'load',
+                     ('new', 'туц', '2'): 'new',
+                     ('exit', 'esc', 'close', 'учше', '3'): 'exit'}
+
+
+'''@error_handler
+def handler(user_inpu):
+    if user_inpu in ANSWEARS.keys():
+        return ANSWEARS[user_inpu]()
+    elif user_inpu in ADD:
+        print('Maybe you mean "add" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return add()
+    elif user_inpu in CHANGE:
+        print('Maybe you mean "change" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return change()
+
+    elif user_inpu in FIND:
+        print('Maybe you mean "find" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return find()
+
+    elif user_inpu in HELP:
+        print('Maybe you mean "help" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return help()
+
+    elif user_inpu in DELETE:
+        print('Maybe you mean "delete" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return delete()
+
+    elif user_inpu in BIRTHDAY:
+        print('Maybe you mean "birthday" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return birthday()
+
+    elif user_inpu in CLEAN:
+        print('Maybe you mean "clean" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return clean_folder()
+
+    elif user_inpu in SHOW:
+        print('Maybe you mean "show" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
+        decision = str(input())
+        decision = decision.lower()
+        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
+            return show()
+    else:
+        return input_error()
 
 
 @error_handler
@@ -750,68 +808,6 @@ def help_func():
     return (60*'*')
 
 
-@error_handler
-def handler(user_inpu):
-    if user_inpu in ANSWEARS.keys():
-        return ANSWEARS[user_inpu]()
-    elif user_inpu in ADD:
-        print('Maybe you mean "add" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return add()
-    elif user_inpu in CHANGE:
-        print('Maybe you mean "change" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return change()
-
-    elif user_inpu in FIND:
-        print('Maybe you mean "find" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return find()
-
-    elif user_inpu in HELP:
-        print('Maybe you mean "help" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return help()
-
-    elif user_inpu in DELETE:
-        print('Maybe you mean "delete" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return delete()
-
-    elif user_inpu in BIRTHDAY:
-        print('Maybe you mean "birthday" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return birthday()
-
-    elif user_inpu in CLEAN:
-        print('Maybe you mean "clean" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return clean_folder()
-
-    elif user_inpu in SHOW:
-        print('Maybe you mean "show" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
-        decision = str(input())
-        decision = decision.lower()
-        if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return show()
-    else:
-        return input_error()
-
-
 def input_error():
     return 'Wrong input! Type exact command you want to do,"exit" to exit or "help" for list of commands.'
 
@@ -837,7 +833,7 @@ BIRTHDAY = ['lf', 'birsday', 'bersday', 'bezday', 'bethday', 'birzday', 'bearsda
 CLEAN = ['cleen', 'clan', 'clin', 'cleane', 'cleene', 'klin', 'klean', 'lean', 'clen',
          'kleen', 'суф', 'лдуут', 'лдуфт', 'сдуфту', 'клн', 'клин', 'разобрать', 'мусор']
 SHOW = ['ырща', 'ырщцу', 'showe', 'schow', 'schove', 'chov', 'shove', 'schov',
-        'schowe', 'how', 'sho', 'shouv', 'шов', 'ірщцу', 'показать', 'рщц', 'ірщм']
+        'schowe', 'how', 'sho', 'shouv', 'шов', 'ірщцу', 'показать', 'рщц', 'ірщм']'''
 
 
 if __name__ == '__main__':
