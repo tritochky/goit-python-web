@@ -86,3 +86,4 @@ class Cleaner:
                     shutil.rmtree(element)
                 else:
                     self.delete_dir(element)
+
