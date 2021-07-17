@@ -5,11 +5,10 @@ from datetime import datetime
 
 
 class AddressBook(UserList):
-
     data = []
 
     def add_record(self, record):
-        self.data.append(record)
+        AddressBook.data.append(record)
 
     def find_value(self, f_value):
         f_value = f_value.lower()
@@ -35,7 +34,7 @@ class AddressBook(UserList):
         counter = 0
         result = ""
         for i in self:
-            result += f'|{i["Id"]:<5}| {i["Name"]:<25}| { i["Phones"][0] if len(i["Phones"])>=1 else " ":<15} | {i["Birthday"]if i["Birthday"] else " ":<11}|{i["Address"]if i["Address"] else " ":<30}|  {i["E-mail"]if i["E-mail"] else " ":<30}| {i["Tags"] if i["Tags"] else " ":<15}|\n'
+            result += f'|{i["Id"]:<5}| {i["Name"]:<25}| { i["Phones"][0] if len(i["Phones"])>=1 else " ":<15} | {i["Birthday"] if i["Birthday"] else " ":<11}|{i["Address"] if i["Address"] else " ":<30}|  {i["E-mail"] if i["E-mail"] else " ":<30}| {i["Tags"] if i["Tags"] else " ":<15}|\n'
             if len(i["Phones"]) > 1:
                 for elem in i["Phones"][1:]:
                     result += f'|     |                          | {elem: <15} |            |                              |                                |                | \n'
@@ -53,13 +52,13 @@ class AddressBook(UserList):
 
 
 class Record:
-    def __init__(self, name, id_n, phones=None, birthday=None, address=None, email=None, tags=None):
+    def __init__(self, name, id_n, birthday=None, address=None, email=None, tags=None):
         self.id_n = id_n
         self.phones = []
-        self.birthday = None
-        self.address = None
-        self.email = None
-        self.tags = None
+        self.birthday = birthday
+        self.address = address
+        self.email = email
+        self.tags = tags
         self.user = {'Id': self.id_n,
                      'Name': name.name,
                      'Phones': self.phones,
@@ -68,7 +67,6 @@ class Record:
                      'E-mail': self.email,
                      'Tags': self.tags}
 
-# Start to add
     def add_address(self, address):
         self.address = address
 
@@ -86,7 +84,6 @@ class Record:
                 self.phones.append(phone)
         except:
             print('Phone must start with + and have 12 digits. Example +380501234567 ADD')
-    # End
 
     def remove_phone(self, phone):
         for i in range(len(self.phones)):
@@ -176,3 +173,4 @@ class Birthday(Field):
             self.__birthday = datetime.strptime(birthday, '%d.%m.%Y')
         except Exception:
             print("Incorrect format, expected day.month.year (Example:25.12.1970)")
+
