@@ -27,28 +27,38 @@ class ConsoleView(ViewInterface):
         print('Hello my friend!')
 
     def start_work(self):
+        print('')
         print('What do you want to do?\nNow you can use commands:\n')
         print('1.  "load" to load AddressBook and NotesBook\n2.  "new" to create new Book\n3.  "exit"/"close" to close application:')
+        print('')
         return str(input())   # возвращает команду
 
     def get_path_to_willing_file(self):
+        print('')
         print(
             r'Please write the full path to file with addressbook and notebook. Example: "d:\test\book.txt":')
+        print('')
         return str(input())  # возвращает путь к файлу
 
     def report_wrong_path(self):
+        print('')
         print('Please write right path to file! This file is empty!')
+        print('')
 
     def get_path_to_new_file(self):
+        print('')
         print(
             r'Please write the full path where to create file. Example: "d:\test\book.txt":')
+        print('')
         return str(input())   # возвращает путь к файлу
 
     def report_wrong_command(self):
+        print('')
         print('Wrong command.')
+        print('')
 
     def choose_command(self):
         print(100*'_')
         print(
-            '   What do you want to do?\n   Type exact command you want to do, \n   "help" for a list of commands,\n   "exit" to exit\n')
+            '   Successefully done!\n''\n   What do you want to do now?\n   Type exact command you want to do, \n   "help" for a list of commands,\n   "exit" to exit.\n')
         return str(input())   # возвращает выбранную команду

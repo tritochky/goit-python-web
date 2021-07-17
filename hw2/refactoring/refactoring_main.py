@@ -26,7 +26,7 @@ try:
 except:
     from views import *
 
-from main import handler
+#from main import handler
 
 
 '''def error_handler(func):
@@ -42,10 +42,10 @@ from main import handler
 
 # @error_handler
 def main():
-    model = VariableModal()
+    #model = VariableModal()
     view = ConsoleView()
+    view.greet()
     while True:
-        view.greet()
         command = view.start_work()
         for key in STARTING_COMMANDS:
             if command in key:
