@@ -5,9 +5,9 @@ import re
 import os
 from datetime import datetime, timedelta, date
 
-from .classbook import *
-from .clean import *
-from .notes_book import NotesBook
+from classbook import *
+from clean import *
+from notes_book import NotesBook
 
 
 def error_handler(func):
@@ -23,7 +23,7 @@ def error_handler(func):
 
 
 @error_handler
-def main():
+def main():  # done
     global path, book, notes_book, esc_e
     esc_e = True
     while True:
@@ -85,7 +85,7 @@ def main():
 
 
 @error_handler
-def add():
+def add():  # done
     print(100*'_')
     say = 'Successfully changed'
     global esc_e, book
@@ -232,7 +232,7 @@ def add():
 
 
 @error_handler
-def change():
+def change():  # done
     print(100*"_")
     global book, esc_e
     say = 'Successfully changed'
@@ -252,32 +252,27 @@ def change():
         if decision == 'name' or decision == 'тфьу' or decision == '1':
             print('Type new name')
             new_name = str(input())
-
             if len(result) > 1:
                 print(f"I've found {len(result)} notes with this Name")
                 show_find(result)
                 print('Please enter Id to change the right name')
-
                 del_input = int(input())
                 for i in result:
                     if i["Id"] == del_input:
                         i['Name'] = new_name
                         save()
                         return say
-
             elif len(result) == 1:
                 for i in result:
                     i['Name'] = new_name
                     save()
                     return say
-
             else:
                 print(f'{old_name} not in Adress Book')
 
         elif decision == 'phone' or decision == 'зрщту' or decision == '2':
             print(
                 'Type phone you want to change.If there are no phones - just press "enter".')
-
             if len(result) > 1:
                 print(f"I've found {len(result)} notes with this Name")
                 show_find(result)
@@ -298,7 +293,6 @@ def change():
                                         return say
                                     else:
                                         print(f'{old_name} not in Adress Book')
-
                             elif len(i['Phones']) == 1:
                                 i['Phones'].remove(old_name)
                                 i['Phones'].append(new_name)
@@ -446,30 +440,12 @@ def change():
         print(f'{old_name} not in Adress Book')
 
 
-def clear():
+def clear():  # done
     os.system('cls' if os.name == 'nt'else 'clear')
 
-# START CHaNGE
-
 
 @error_handler
-def clean_folder():
-    cleaner = Cleaner()
-    print(100*"_")
-    print('Welcome to clean folder instrument!')
-    print(100*"_")
-    print('Please enter path to clean and structurise.')
-    user_input = str(input())
-
-    path = pathlib.Path(user_input)
-    cleaner.print_recursive(path, user_input)
-    cleaner.delete_dir(user_input)
-    # D:\Tresh
-    return 'Everything done! Please check yor folder!'
-
-
-@error_handler
-def birthday():
+def birthday():  # done
     global esc_e
     print(100*'_')
     print("1.   If you want to find, who'll have birthday in exact date TYPE 1.\n2.   If you need to know who'll have birthday in period of time TYPE 2.\n3.   If you need to know how many days to somebody's birthday TYPE 3.\n4.   Type 'exit' to exit")
@@ -543,7 +519,7 @@ def birthday():
         print('Not found this Name!')
 
 
-def days_to_birthday(bday):
+def days_to_birthday(bday):  # done
     today_d = datetime.now().date()
     bday = datetime.strptime(bday, "%d.%m.%Y").date()
     bday = date(today_d.year, bday.month, bday.day)
@@ -558,7 +534,7 @@ def days_to_birthday(bday):
 
 
 @error_handler
-def delete():
+def delete():  # done
     print(100*'_')
     print('Put Name, you want to find and delete from your addressbook')
     find_v = str(input())
@@ -594,7 +570,7 @@ def delete():
 
 
 @error_handler
-def find():
+def find():  # done
     print(100*'_')
     print('Put word, half of word or digits you want to find')
     find_v = str(input())
@@ -602,7 +578,7 @@ def find():
     show_find(result)
 
 
-def show_find(v_list):
+def show_find(v_list):  # done
 
     print("I've found following:")
     # Печать шапки с названием столбцов
@@ -619,14 +595,14 @@ def show_find(v_list):
         print(f"{145*'_'}")
 
 
-def exit():
+def exit():  # done
     global esc_e
     save()
     esc_e = False
     return "Good Bye"
 
 
-def save():
+def save():  # done
     global path, book, notes_book
     with open(path, 'wb') as fh:
         pickle.dump(book, fh)
@@ -635,7 +611,7 @@ def save():
 # @error_handler
 
 
-def show():
+def show():  # done
     number = input('Please input the number or record on 1 page: ')
     try:
         number = int(number)
@@ -737,7 +713,7 @@ def show_notes():
 # Конец конец команд для NotesBook
 
 
-def help_func():
+def help_func():  # done
     print(60*'*')
     print(20*'*'+'WORKING WITH ADDRESSBOOK:'+20*'*')
     print('*Type "add"      to add new contact.\n*Type "birthday" to see people that have birthday nearest days.\n*Type "change"   to change contact\'s phone, name or birthday.\n*Type "clear"   to clear terminal window.\n*Type "delete"    to delete information that you don\'t need.\n*Type "find"      to see information that you are looking for.\n*Type "show"      to show you all phonebook.\n*Type "save"      to save and exit.\n*Type "exit"      to exit')
@@ -749,7 +725,7 @@ def help_func():
 
 
 @error_handler
-def handler(user_inpu):
+def handler(user_inpu):  # done
     if user_inpu in ANSWEARS.keys():
         return ANSWEARS[user_inpu]()
     elif user_inpu in ADD:
@@ -777,7 +753,7 @@ def handler(user_inpu):
         decision = str(input())
         decision = decision.lower()
         if decision == 'y' or decision == 'yes' or decision == 'нуі' or decision == 'н' or decision == 'да' or decision == 'д':
-            return help()
+            return help_func()
 
     elif user_inpu in DELETE:
         print('Maybe you mean "delete" command?\nIf YES type "yes" or "y"\nIf NO type "no" or "n"')
@@ -810,8 +786,24 @@ def handler(user_inpu):
         return input_error()
 
 
-def input_error():
+def input_error():  # done
     return 'Wrong input! Type exact command you want to do,"exit" to exit or "help" for list of commands.'
+
+
+@error_handler
+def clean_folder():
+    cleaner = Cleaner()
+    print(100*"_")
+    print('Welcome to clean folder instrument!')
+    print(100*"_")
+    print('Please enter path to clean and structurise.')
+    user_input = str(input())
+
+    path = pathlib.Path(user_input)
+    cleaner.print_recursive(path, user_input)
+    cleaner.delete_dir(user_input)
+    # D:\Tresh
+    return 'Everything done! Please check yor folder!'
 
 
 ANSWEARS = {'add': add, 'ad': add, '+': add, 'фвв': add, 'change': change, 'срфтпу': change, 'close': exit, 'exit': exit, 'учше': exit, 'clear': clear, 'сдуфк': clear,

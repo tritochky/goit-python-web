@@ -2,6 +2,10 @@ import re
 
 from collections import UserList
 from datetime import datetime
+try:
+    from .views import ConsoleView
+except:
+    from views import ConsoleView
 
 
 class AddressBook(UserList):
@@ -33,8 +37,9 @@ class AddressBook(UserList):
     def iterator(self, n):
         counter = 0
         result = ""
+        view = ConsoleView()
         for i in self:
-            result += f'|{i["Id"]:<5}| {i["Name"]:<25}| { i["Phones"][0] if len(i["Phones"])>=1 else " ":<15} | {i["Birthday"] if i["Birthday"] else " ":<11}|{i["Address"] if i["Address"] else " ":<30}|  {i["E-mail"] if i["E-mail"] else " ":<30}| {i["Tags"] if i["Tags"] else " ":<15}|\n'
+            result += view.print_one_contact()
             if len(i["Phones"]) > 1:
                 for elem in i["Phones"][1:]:
                     result += f'|     |                          | {elem: <15} |            |                              |                                |                | \n'
@@ -77,13 +82,14 @@ class Record:
         self.id_n = id_n
 
     def add_phone(self, phone):
+        view = ConsoleView()
         phone = str(phone)
         try:
             num = re.fullmatch('[+]?[0-9]{3,12}', phone)
             if num:
                 self.phones.append(phone)
         except:
-            print('Phone must start with + and have 12 digits. Example +380501234567 ADD')
+            view.report_wrong_phone()
 
     def remove_phone(self, phone):
         for i in range(len(self.phones)):
@@ -126,11 +132,11 @@ class Phone(Field):
     @ phone.setter
     def phone(self, value):
         self.__phone = ''
+        view = ConsoleView()
         if re.fullmatch('[+]?[0-9]{3,12}', value):
             self.__phone = value
         else:
-            print(
-                'Phone must start with + and have 12 digits. Example +380501234567')
+            view.report_wrong_phone()
 
     # def __str__(self):
         # return self.phone
@@ -169,8 +175,8 @@ class Birthday(Field):
 
     @ birthday.setter
     def birthday(self, birthday):
+        view = ConsoleView()
         try:
             self.__birthday = datetime.strptime(birthday, '%d.%m.%Y')
         except Exception:
-            print("Incorrect format, expected day.month.year (Example:25.12.1970)")
-
+            view.report_wrong_birthday()
