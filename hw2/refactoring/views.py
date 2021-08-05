@@ -1,12 +1,5 @@
-from _typeshed import Self
-try:
-    from .classbook import Name
-except:
-    from classbook import Name
-try:
-    from .modals import*
-except:
-    from modals import*
+# from classbook import*  # Name
+#from modals import*
 
 
 class ViewInterface:
@@ -59,21 +52,22 @@ class ConsoleView(ViewInterface):
     def get_path_to_new_file(self):
         print('')
         print(
-            r'Please write the full path where to create file. Example: "d:\test\book.txt":')
+            r'Please write the full path where to create file. Example: "d:\test\book.txt". Othewise the file will be created in the directory where HELPER is.')
         print('')
         return str(input())   # возвращает путь к файлу
 
     def report_wrong_command(self):
         print('')
         print('Wrong command.')
-        print('')
 
     def choose_command(self):
+        print('')
         print(
-            '   Successefully done!\n''\n   What do you want to do now?\n   Type exact command you want to do, \n   "help" for a list of commands,\n   "exit" to exit.\n')
+            '   Ok! What do you want to do now?\n''\n   Type exact command you want to do, \n   "help" for a list of commands,\n   "exit" to exit.\n')
         return str(input())   # возвращает выбранную команду
 
     def choose_yes_no(self):
+        print('')
         print('If YES type "yes" or "y"\nIf NO type "no" or "n"')
 
     def correct_wrong_add(self):
@@ -132,138 +126,162 @@ class ConsoleView(ViewInterface):
         print('')
         return str(input())
 
-    def report_input_error(self):
+    def report_input_error(self):   # for using in def error_handler(func)
         print('')
         print('Wrong input! Type exact command you want to do, "exit" to exit or "help" for list of commands.')
         print('')
 
-    def help_func(self):
+    def show_help_func(self):
         print('')
-        print(20*'*'+'WORKING WITH ADDRESSBOOK:'+20*'*')
+        print(20*'*'+' '+'WORKING WITH ADDRESSBOOK:'+20*'*')
         print('')
         print('*Type "add"      to add new contact.\n*Type "birthday" to see people that have birthday nearest days.\n*Type "change"   to change contact\'s phone, name or birthday.\n*Type "clear"    to clear terminal window.\n*Type "delete"   to delete information that you don\'t need.\n*Type "find"     to see information that you are looking for.\n*Type "show"     to show you all phonebook.\n*Type "save"     to save and exit.\n*Type "exit"     to exit\n')
-        print(21*'*'+'WORKING WITH NOTESBOOK:'+21*'*')
+        print(21*'*'+' '+'WORKING WITH NOTESBOOK:'+21*'*')
         print('')
         print('*Type "add note"    to add new note.\n*Type "delete note" to delete note.\n*Type "edit note"   to edit note.\n*Type "find note"   to look through notes.\n*Type "sort notes"  to sort notes.\n*Type "show notes"  to show your notes.\n')
-        print(19*'*'+'WORKING WITH CLEANFOLDER:'+19*'*')
+        print(20*'*'+' '+'WORKING WITH CLEANFOLDER:'+20*'*')
         print('')
         print('*Type "clean"    to clean and structurise folder.\n')
-        print(65*'*')
-        print('')
+        print(66*'*')
 
     def say(self):
+        print('')
         print('Successfully changed')
 
     def get_name(self):
+        print('')
         print('Input Name:')
-        self.name = Name(str(input()))
-        return self.name
+        print('')
+        return str(input())
 
     def worn(self):
         print('Not saved')
 
     def choose_yes_no_exit(self):
         print('"y" (YES) or "n" (NO). Type "exit" to exit')
+        print('')
 
     def ask_about_phone(self):
+        print('')
         print('Do you want to add phone-number?')
         self.choose_yes_no_exit()
         return str(input())
 
     def get_phone(self):
+        print('')
         print('Input Phone Number. Example: +380501234567')
+        print('')
         return str(input())
 
     def report_wrong_phone(self):
+        print('')
         print(
             'Wrong input! Phone may start with + and has from 3 to 12 digits max. Example +380501234567')
 
     def close(self):
         print('Good Bye, my friend!')
 
-    def report_wrong_input(self):
-        print('Wrong input!')
-
     def ask_about_birthday(self):
+        print('')
         print('Do you want to add Birthday?')
         self.choose_yes_no_exit()
         return str(input())
 
     def get_birthday(self):
+        print('')
         print('Input Birthday. Expected day.month.year (Example: 25.12.1970). If year of birth is not known, type 1111')
+        print('')
         return str(input())
 
     def report_wrong_birthday(self):
+        print('')
         print(
             'Wrong format of Birthday. Expected day.month.year. Format: dd.mm.yyyy (Example: 25.12.1970)')
 
     def ask_about_address(self):
+        print('')
         print('Do you want to add Address?')
         self.choose_yes_no_exit()
         return str(input())
 
     def get_address(self):
+        print('')
         print('Input Address. Please no more than 50 symbols')
+        print('')
         return str(input())
 
-    def report_wrong_address(self):
+    def report_wrong_address(self, address):
+        print('')
         print(
-            f'Your Address is {len(self.address)} symbols. Please no more than 50 symbols')
+            f'Your Address is {len(address)} symbols. Please no more than 50 symbols')
 
     def ask_aboiut_email(self):
+        print('')
         print('Do you want to add E-mail?')
         self.choose_yes_no_exit()
         return str(input())
 
     def get_email(self):
-        print('Input E-mail. Please no more than 50 symbols')
+        print('')
+        print('Input E-mail. Please no more than 30 symbols')
+        print('')
         return str(input())
 
-    def report_wrong_email(self):
+    def report_wrong_email(self, email):
+        print('')
         print(
-            f'Your E-mail is {len(self.email)} symbols. Please no more than 50 symbols')
+            f'Your E-mail is {len(email)} symbols. Please no more than 30 symbols')
 
     def report_wrong_format_email(self):
+        print('')
         print(
             'Format is wrong. Try again in format: your_nickname@something.domen_name')
 
     def ask_aboiut_tag(self):
+        print('')
         print('Do you want to add Tag?')
         self.choose_yes_no_exit()
         return str(input())
 
     def get_tag(self):
+        print('')
         print('Input Tag. Please no more than 25 symbols')
+        print('')
         return str(input())
 
-    def report_wrong_tag(self):
+    def report_wrong_tag(self, tags):
+        print('')
         print(
-            f'Your Tag is {len(self.tags)} symbols. Please no more than 25 symbols')
+            f'Your Tag is {len(tags)} symbols. Please no more than 25 symbols')
 
     def start_change(self):
+        print('')
         print('Type name of record you want to change')
+        print('')
         return str(input())
 
     def choose_to_change(self):
-        print("")
-        print('1.   To change Name: type "name".\n2.   To change Phone: type "phone".\n3.   To change Birthday: type "birthday".\n4.   To change Address: type "address".\n5.   To change E-mail: type "email".\n6.   To change Tags: type "tags"\n7.   To exit: type "exit".\n')
         print('')
+        print('For correctly work type ONLY following commands!')
+        print('')
+        print('1.   To change Name: type "name" or 1.\n2.   To change Phone: type "phone" or 2.\n3.   To change Birthday: type "birthday" or 3.\n4.   To change Address: type "address" or 4.\n5.   To change E-mail: type "email" or 5.\n6.   To change Tags: type "tags" or 6.\n7.   To exit: type "exit" or 7.\n')
         return str(input())
 
     def change_name(self):
+        print('')
         print('Type new name')
+        print('')
         return str(input())
 
-    def choose_id(self):
-        print('')
+    def choose_id(self, result):
         print(
-            f"I've found {len(self.result)} notes with this Name\nFor further work, choose Id")
+            f"I've found {len(result)} notes with this Name. For further work choose Id")
         print('')
-        return str(input())
+        return int(input())
 
-    def notify_wrong_name(self):
+    def notify_wrong_name(self, old_name):
         print('')
-        print(f'{self.old_name} is not in Adress Book')
+        print(f'{old_name} is not in Adress Book')
 
     def choose_phone(self):
         print('')
@@ -285,12 +303,14 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def change_birthday(self):
+        print('')
         print(
             'Type new birthday. Expected day.month.year (example: 25.12.1970). If year of birth is not known, type 1111')
         print('')
         return str(input())
 
     def wrong_input_birthday(self):
+        print('')
         print(
             'Wrong input! Expected day.month.year (example: 25.12.1970)')
 
@@ -302,6 +322,7 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def change_address(self):
+        print('')
         print('Type new address.')
         print('')
         return str(input())
@@ -314,6 +335,7 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def change_email(self):
+        print('')
         print('Type new E-mail.')
         print('')
         return str(input())
@@ -326,6 +348,7 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def change_tag(self):
+        print('')
         print('Type new Tag. Please no more than 25 symbols')
         print('')
         return str(input())
@@ -335,37 +358,53 @@ class ConsoleView(ViewInterface):
         print(
             "1.   If you want to know, who'll have birthday after a few days TYPE 1.\n2.   If you want to know who'll have birthday in the coming days TYPE 2.\n3.   If you want to know how many days are to somebody's birthday TYPE 3.\n4.   Type 'exit' to exit")
         print('')
-        return str(input())
+        return int(input())
 
     def get_a_few_days(self):
+        print('')
         print("Please write in how many days people's birthday will be.")
+        print('')
         return int(input())
 
-    def notify_birthday_boys(self):
+    def notify_birthday_boys(self, bday, result):
+        print('')
         print(
-            f'On {self.bday} you should congratulate {len(self.result)} people from your Addressbook')
+            f'On {bday} you should congratulate {len(result)} people from your Addressbook')
 
     def get_period(self):
+        print('')
         print("Please write how many days in advance to show you people's birthday.")
+        print('')
         return int(input())
 
-    def notify_next_birthdays(self):
+    def notify_next_birthdays(self, n, result):
+        print('')
         print(
-            f'In the coming {self.n} days you should congratulate {len(self.result)} people from your Addressbook')
+            f'In the coming {n} days you should congratulate {len(result)} people from your Addressbook')
 
-    def notify_no_birthday(self):
+    def notify_no_birthday(self, n):
+        print('')
         print(
-            f'In the coming {self.n} days nobody from your Addressbook has a birthday')
+            f'In the coming {n} days nobody from your Addressbook has a birthday')
 
     def get_birthdays_name(self):
+        print('')
         print("Please write name to know how many days left to birthday.")
+        print('')
         return str(input())
 
-    def recall_congratulate(self):
+    def recall_congratulate_now(self, i):
+        print('')
         print(
-            f'{self.i["Name"]} from your Addressbook will have birthday in {self.days} days. Do not forget to congratulate!')
+            f'{i["Name"]} from your Addressbook has birthday TODAY!!! You should congratulate right NOW!!!!')
+
+    def recall_congratulate(self, i, days):
+        print('')
+        print(
+            f'{i["Name"]} from your Addressbook will have birthday in {days} days. Do not forget to congratulate!')
 
     def notify_no_information(self):
+        print('')
         print(f'No information about birthday. Please enter valid information using command "change" or add new person to Addressbook')
 
     def choose_name_to_delete(self):
@@ -374,8 +413,8 @@ class ConsoleView(ViewInterface):
         print('')
         return str(input())
 
-    def report_delete(self):
-        print(f"You've deleted {self.find_v}")
+    def report_delete(self, find_v):
+        print(f"You've deleted {find_v}")
 
     def get_something_to_find(self):
         print('')
@@ -384,29 +423,34 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def notify_to_find(self):
+        print('')
         print("I've found following:")
 
     def print_top(self):
         print('')
         # Печать шапки с названием столбцов
-        print(145*'_')
-        print('| ID  |           Name           |     Phones      |  Birthday  |           Address            |              E-mail            |       Tags     |')
-        print(145*'-')
+        print(168*'_')
+        print('| ID  |          Name         |    Phones     |  Birthday |                     Address                      |            E-mail            |           Tags           |')
+        print(168*'-')
 
-    def print_one_contact(self):
-        print(f'|{self.i["Id"]:<5}| {self.i["Name"]:<25}| {self.i["Phones"][0] if len(self.i["Phones"]) >= 1 else " ":<15} | {self.i["Birthday"] if self.i["Birthday"] else " ":<11}|{self.i["Address"] if self.i["Address"] else " ":<30}|  {self.i["E-mail"] if self.i["E-mail"] else " ":<30}| {self.i["Tags"] if self.i["Tags"] else " ":<15}|')
+    def print_one_contact(self, i):
+        '''print(f'|{i["Id"]:<5}|{i["Name"]:<25}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":<15}|{str(i["Birthday"]) if i["Birthday"] else " ":<11}|{i["Address"] if i["Address"] else " ":<30}|{i["E-mail"] if i["E-mail"] else " ":<30}|{i["Tags"] if i["Tags"] else " ":<15}|')'''
+        print(i)
+        self.show_pages_end()
 
-    def print_result_of_search(self):
-        self.print_one_contact()
-        if len(self.i["Phones"]) > 1:
-            for self.elem in self.i["Phones"][1:]:
+    def print_result_of_search(self, i):
+        # self.print_one_contact(i)
+        print(f'|{i["Id"]:^5}|{i["Name"]:^23}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":^15}|{str(i["Birthday"]) if i["Birthday"] else " ":^11}|{i["Address"] if i["Address"] else " ":^50}|{i["E-mail"] if i["E-mail"] else " ":^30}|{i["Tags"] if i["Tags"] else " ":^26}|\n')
+        if len(i["Phones"]) > 1:
+            for elem in i["Phones"][1:]:
                 print(
-                    f'|     |                          | {self.elem: <15} |            |                              |                                |                |')
-        print(f"{145*'_'}\n")
+                    f'|     |                       |{elem: ^15}|           |                                                  |                              |                          |\n')
+        print(f"{168*'_'}\n")
 
     def get_number_of_records(self):
         print('')
         print('Please input the number of records on 1 page: ')
+        print('')
         return str(input())
 
     def notify_addressbook(self):
@@ -414,17 +458,20 @@ class ConsoleView(ViewInterface):
         print("The contacts book is following:")
 
     def show_pages_end(self):
-        print(63*'_'+'The end of the page. PRESS ENTER to continue'+63*'_')
-        return input()
+        print('')
+        print(53*' '+'The end of the page. PRESS ENTER to continue'+53*' ')
+        input()
 
     def notify_end_addressebook(self):
         print("The end of the contacts book")
 
     def get_note(self):
         print('Please input your note (to stop entering note press "ENTER" twice):')
+        print('')
         return str(input())
 
     def notify_wrong_note(self):
+        print('')
         print('Please no more than 40 symbols in one line')
 
     def get_hashtag(self):
@@ -432,17 +479,21 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def notify_successfully_saving(self):
+        print('')
         print("Your note is successfully saved")
 
     def notify_wrong_hashtag(self):
+        print('')
         print('Please no more than 30 symbols')
 
     def get_hashtag_to_delete(self):
+        print('')
         print("Please input a hashtag of note that you would like to delete:")
+        print('')
         return str(input())
 
-    def notify_successfully_deleting(self):
-        print(f"The note with hashtag '{self.hashtag}' is deleted")
+    def notify_successfully_deleting(self, hashtag):
+        print(f"The note with hashtag '{hashtag}' is deleted")
 
     def get_hashtag_to_edit(self):
         print("Please input a hashtag of note that you would like to edit:")
@@ -455,8 +506,8 @@ class ConsoleView(ViewInterface):
     def notify_result_of_search(self):
         print('THE RESULTS OF SEARCH:')
 
-    def show_result_of_search(self):
-        print(self.result)
+    def show_result_of_search(self, result):
+        print(result)
         print("The search is sucessfully finished")
 
     def notify_wrong_search(self):
@@ -473,16 +524,16 @@ class ConsoleView(ViewInterface):
         print('')
         return str(input())
 
-    def show_sorted_notes(self):
-        notes_book = VariableModal()
+    def show_sorted_notes(self, search_type):
+        #notes_book = VariableModel()
         print('The sorted Notes are:')
-        print(notes_book.sort_notes(self.search_type))
+        print(self.notes_book.sort_notes(search_type))
         print('The end of sorted Notes')
 
     def show_all_notes(self):
-        notes_book = VariableModal()
+        #notes_book = VariableModel()
         print('Your Notes Book:')
-        print(notes_book)
+        print(self.notes_book)
         print("The end of Notes Book")
 
     def get_path_to_clean(self):
@@ -493,4 +544,5 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def notify_finish(self):
+        print('')
         print('Everything done! Please check yor folder!')

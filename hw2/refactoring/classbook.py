@@ -2,48 +2,55 @@ import re
 
 from collections import UserList
 from datetime import datetime
-try:
-    from .views import ConsoleView
-except:
-    from views import ConsoleView
+from views import ConsoleView
 
 
 class AddressBook(UserList):
+
+    '''def __str__(self) -> str:
+        result = ""
+        for i in self.user:
+            result += f'|{i["Id"]:<5}| {i["Name"]:<25}| { i["Phones"][0] if len(i["Phones"])>=1 else " ":<15} | {str(i["Birthday"]) if i["Birthday"] else " ":<11}|{i["Address"]if i["Address"] else " ":<30}|  {i["E-mail"]if i["E-mail"] else " ":<30}| {i["Tags"] if i["Tags"] else " ":<15}|\n'
+            if len(i["Phones"]) > 1:
+                for elem in i["Phones"][1:]:
+                    result += f'|     |                          | {elem: <15} |            |                              |                                |                | \n'
+            result += f"{145*'_'}\n"
+        return result'''
+
     data = []
 
     def add_record(self, record):
-        AddressBook.data.append(record)
+        self.data.append(record)
 
     def find_value(self, f_value):
         f_value = f_value.lower()
-        result = []
-        for i in self:
-            for value in i.values():
+        result = AddressBook()
+        for item in self:
+            for value in item.values():
                 if (isinstance(value, str)):
                     value = value.lower()
-                    if value.find(f_value) != -1:
-                        if i not in result:
-                            result.append(i)
+                    if value.find(f_value) != -1 and value == f_value:
+                        if item not in result:
+                            result.append(item)
                             break
                 elif value != None:
                     if (isinstance(value, list)):
                         for j in value:
                             j = j.lower()
-                            if j.find(f_value) != -1:
-                                result.append(i)
+                            if j.find(f_value) != -1 and j == f_value:
+                                result.append(item)
                                 break
         return result
 
     def iterator(self, n):
         counter = 0
         result = ""
-        view = ConsoleView()
         for i in self:
-            result += view.print_one_contact()
+            result += f'|{i["Id"]:^5}|{i["Name"]:^23}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":^15}|{str(i["Birthday"]) if i["Birthday"] else " ":^11}|{i["Address"] if i["Address"] else " ":^50}|{i["E-mail"] if i["E-mail"] else " ":^30}|{i["Tags"] if i["Tags"] else " ":^26}|\n'
             if len(i["Phones"]) > 1:
                 for elem in i["Phones"][1:]:
-                    result += f'|     |                          | {elem: <15} |            |                              |                                |                | \n'
-            result += f"{145*'_'}\n"
+                    result += f'|     |                       |{elem: ^15}|           |                                                  |                              |                          | \n'
+            result += f"{168*'_'}\n"
             # конец записи строки с описанием 1 контакта
             counter += 1
             if counter == n:
@@ -59,18 +66,29 @@ class AddressBook(UserList):
 class Record:
     def __init__(self, name, id_n, birthday=None, address=None, email=None, tags=None):
         self.id_n = id_n
+        self.name = name
         self.phones = []
         self.birthday = birthday
         self.address = address
         self.email = email
         self.tags = tags
         self.user = {'Id': self.id_n,
-                     'Name': name.name,
+                     'Name': self.name,
                      'Phones': self.phones,
                      'Birthday': self.birthday,
                      'Address': self.address,
                      'E-mail': self.email,
                      'Tags': self.tags}
+
+    def __str__(self) -> str:
+        result = ""
+        for i in self.user:
+            result += f'|{i["Id"]:^5}|{i["Name"]:^23}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":^15}|{str(i["Birthday"]) if i["Birthday"] else " ":^11}|{i["Address"] if i["Address"] else " ":^50}|{i["E-mail"] if i["E-mail"] else " ":^30}|{i["Tags"] if i["Tags"] else " ":^26}|\n'
+            if len(i["Phones"]) > 1:
+                for elem in i["Phones"][1:]:
+                    result += f'|     |                       |{elem: ^15}|           |                                                  |                              |                          | \n'
+            result += f"{168*'_'}\n"
+        return result
 
     def add_address(self, address):
         self.address = address
