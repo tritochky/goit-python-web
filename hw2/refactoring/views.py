@@ -262,7 +262,7 @@ class ConsoleView(ViewInterface):
 
     def choose_to_change(self):
         print('')
-        print('For correctly work type ONLY following commands!')
+        print('For correct work type ONLY following commands!')
         print('')
         print('1.   To change Name: type "name" or 1.\n2.   To change Phone: type "phone" or 2.\n3.   To change Birthday: type "birthday" or 3.\n4.   To change Address: type "address" or 4.\n5.   To change E-mail: type "email" or 5.\n6.   To change Tags: type "tags" or 6.\n7.   To exit: type "exit" or 7.\n')
         return str(input())
@@ -343,7 +343,7 @@ class ConsoleView(ViewInterface):
     def choose_tag(self):
         print('')
         print(
-            'Type Tag you want to change. If there are not Tags - just press "enter"')
+            'Type Tag you want to change. If there are not Tags - just press "enter".\nIf there is tag, you can ONLY replace information, not add')
         print('')
         return str(input())
 
@@ -434,7 +434,6 @@ class ConsoleView(ViewInterface):
         print(168*'-')
 
     def print_one_contact(self, i):
-        '''print(f'|{i["Id"]:<5}|{i["Name"]:<25}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":<15}|{str(i["Birthday"]) if i["Birthday"] else " ":<11}|{i["Address"] if i["Address"] else " ":<30}|{i["E-mail"] if i["E-mail"] else " ":<30}|{i["Tags"] if i["Tags"] else " ":<15}|')'''
         print(i)
         self.show_pages_end()
 
@@ -466,16 +465,19 @@ class ConsoleView(ViewInterface):
         print("The end of the contacts book")
 
     def get_note(self):
-        print('Please input your note (to stop entering note press "ENTER" twice):')
+        print('')
+        print('Please input your note but no more than 40 symbols in one line\nTo stop entering note press "ENTER" twice')
         print('')
         return str(input())
 
     def notify_wrong_note(self):
         print('')
-        print('Please no more than 40 symbols in one line')
+        print('Your note has more than 40 symbols in one line')
+        print('')
 
     def get_hashtag(self):
-        print('Please input the hashtag of your note: \n')
+        print('')
+        print('Please input the hashtag of your note (no more than 30 symbols): \n')
         return str(input())
 
     def notify_successfully_saving(self):
@@ -484,7 +486,7 @@ class ConsoleView(ViewInterface):
 
     def notify_wrong_hashtag(self):
         print('')
-        print('Please no more than 30 symbols')
+        print('Please no more than 30 symbols\n')
 
     def get_hashtag_to_delete(self):
         print('')

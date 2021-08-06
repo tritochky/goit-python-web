@@ -3,7 +3,7 @@ from collections import UserList
 
 class NotesBook(UserList):
     # список списков: список заметок, каждая заметка - список с 2 элементов:
-    # заметка[0]-множество тєгов, заметка[1] - текст заметки
+    # заметка[0]-строка с тєгами, заметка[1] - текст заметки
 
     def add_note(self, text, hashtag):
         # добавляет заметку в NotesBook
@@ -16,28 +16,11 @@ class NotesBook(UserList):
             if note[0] == hashtag:
                 self.remove(note)
 
-    def edit_note(self, hashtag):
+    def edit_note(self, new_note):
+        # редактирует заметку из NotesBook, которая имеет заметка[0]==hashtag
         for note in self:
-            if note[0] == hashtag:
-                # находим нужную заметку с заданным ключевым словом
-                # изменяем текст заметки, который находится в  note[1]
-                print('You would like to edit the following note:')
-                print(note[1])
-
-                lines = note[1].split('\n')
-                counter = 0
-                for line in lines:
-                    print('Please edit:')
-                    print(line)
-                    new_line = input()
-                    if new_line:
-                        lines.pop(counter)
-                        lines.insert(counter, new_line)
-                    counter += 1
-                note[1] = '\n'.join(lines)
-                print("The note is edited")
-        else:
-            print("Not found this Tag")
+            if note[0] == new_note[0]:
+                note[1] = new_note[1]
 
     def find_note(self, keyword):
         # находит все заметки, в тэгах которых содержится keyword
@@ -70,8 +53,6 @@ class NotesBook(UserList):
 
     def __str__(self):
         result = ""
-        # for note in self:
-        #     result += note[0]+"\n" + note[1]+"\n"
 
         # Печать шапки с названием столбцов
         result += f" {72*'_'} \n"
@@ -83,9 +64,9 @@ class NotesBook(UserList):
             counter = 0
             for line in lines:
                 if counter == 0:
-                    result += f'|{note[0]:<30}| {line:<40}|\n'
+                    result += f'|{note[0]:^30}| {line:^40}|\n'
                 else:
-                    result += f'|{" ":<30}| {line:<40}|\n'
+                    result += f'|{" ":^30}| {line:^40}|\n'
                 counter += 1
             result += f'|{30*"_"}|{40*"_"}|\n'
         return result

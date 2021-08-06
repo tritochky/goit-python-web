@@ -242,87 +242,68 @@ class CommandController:
                         self.view.notify_wrong_name(old_name)
             elif decision in PHONE_COMMAND:  # нужен ай ди везде
                 old_name = self.view.choose_phone()
-                '''if len(result) > 1:
-                    self.show_find(result)
-                    del_input = self.view.choose_id()
-                    for i in result:
+                new_phone = self.view.change_phone()
+                for i in result:
+                    if 'del_input' in locals():
                         if i["Id"] == del_input:
-                            new_phone = self.view.change_phone()
-                            for i in result:
-                                if len(i['Phones']) > 1:
-                                    for j in i['Phones']:
-                                        if j == old_name:
-                                            i['Phones'].remove(j)
-                                            i['Phones'].append(new_phone)
-                                            self.save()
-                                            return self.view.say()
-                                        else:
-                                            self.view.notify_wrong_name(
-                                                old_name)
-                                elif len(i['Phones']) == 1:
+                            if len(i['Phones']) > 1:
+                                for j in i['Phones']:
+                                    if j == old_name:
+                                        i['Phones'].remove(j)
+                                        i['Phones'].append(new_phone)
+                                        self.save()
+                                        return self.view.say()
+                                    elif old_name == '':
+                                        i['Phones'].append(new_phone)
+                                        self.save()
+                                        return self.view.say()
+                                    else:
+                                        self.view.notify_wrong_name(
+                                            old_name)
+                            elif len(i['Phones']) == 1:
+                                if i['Phones'] == old_name:
                                     i['Phones'].remove(old_name)
                                     i['Phones'].append(new_phone)
                                     return self.view.say()
-                                elif len(i['Phones']) == 0:
+                                elif old_name == '':
                                     i['Phones'].append(new_phone)
                                     self.save()
                                     return self.view.say()
-                elif len(result) == 1:'''
-                new_phone = self.view.change_phone()
-                for i in result:
-                    if len(i['Phones']) > 1:
-                        for j in i['Phones']:
-                            if j == old_name:
-                                i['Phones'].remove(j)
+                            elif len(i['Phones']) == 0:
                                 i['Phones'].append(new_phone)
                                 self.save()
+                                return self.view.say()
+                    elif 'del_input' not in locals():
+                        if len(i['Phones']) > 1:
+                            for j in i['Phones']:
+                                if j == old_name:
+                                    i['Phones'].remove(j)
+                                    i['Phones'].append(new_phone)
+                                    self.save()
+                                    return self.view.say()
+                                elif old_name == '':
+                                    i['Phones'].append(new_phone)
+                                    self.save()
+                                    return self.view.say()
+                                else:
+                                    self.view.notify_wrong_name(old_name)
+                        elif len(i['Phones']) == 1:
+                            if i['Phones'] == old_name:
+                                i['Phones'].remove(old_name)
+                                i['Phones'].append(new_phone)
                                 return self.view.say()
                             elif old_name == '':
                                 i['Phones'].append(new_phone)
                                 self.save()
                                 return self.view.say()
-                            else:
-                                self.view.notify_wrong_name(old_name)
-                    elif len(i['Phones']) == 1 and i['Phones'] == old_name:
-                        i['Phones'].remove(old_name)
-                        i['Phones'].append(new_phone)
-                        self.save()
-                        return self.view.say()
-                    elif len(i['Phones']) == 0:
-                        i['Phones'].append(new_phone)
-                        self.save()
-                        return self.view.say()
+                        elif len(i['Phones']) == 0:
+                            i['Phones'].append(new_phone)
+                            self.save()
+                            return self.view.say()
                     else:
-                        i['Phones'].append(new_phone)
-                        self.save()
-                        return self.view.say()
-                else:
-                    self.view.notify_wrong_name(old_name)
+                        self.view.notify_wrong_name(old_name)
             elif decision in BIRTHDAY_COMMAND:
                 old_name = self.view.choose_birthday()
-                '''if len(result) > 1:
-                    self.show_find(result)
-                    del_input = self.view.choose_id()
-                    for i in result:
-                        if i["Id"] == del_input:
-                            new_birthday = self.view.change_birthday()
-                            try:
-                                datetime.strptime(
-                                    new_birthday, "%d.%m.%Y").date()
-                            except:
-                                self.view.wrong_input_birthday()
-                            for i in result:
-                                if i['Birthday'] == old_name:
-                                    i['Birthday'] = new_birthday
-                                    self.save()
-                                    return self.view.say()
-                                elif i['Birthday'] == None:
-                                    i['Birthday'] = new_birthday
-                                    self.save()
-                                    return self.view.say()
-                                else:
-                                    self.view.notify_wrong_name(old_name)
-                    elif len(result) == 1:'''
                 new_birthday = self.view.change_birthday()
                 try:
                     datetime.strptime(
@@ -330,66 +311,118 @@ class CommandController:
                 except:
                     self.view.wrong_input_birthday()
                 for i in result:
-                    if i['Birthday'] == old_name:
-                        i['Birthday'] = new_birthday
-                        self.save()
-                        return self.view.say()
-                    elif i['Birthday'] == None:
-                        i['Birthday'] = new_birthday
-                        self.save()
-                        return self.view.say()
+                    if 'del_input' in locals():
+                        if i["Id"] == del_input:
+                            if i['Birthday'] == old_name:
+                                i['Birthday'] = new_birthday
+                                self.save()
+                                return self.view.say()
+                            elif i['Birthday'] == None:
+                                i['Birthday'] = new_birthday
+                                self.save()
+                                return self.view.say()
+                            else:
+                                self.view.notify_wrong_name(old_name)
+                    elif 'del_input' not in locals():
+                        if i['Birthday'] == old_name:
+                            i['Birthday'] = new_birthday
+                            self.save()
+                            return self.view.say()
+                        elif i['Birthday'] == None:
+                            i['Birthday'] = new_birthday
+                            self.save()
+                            return self.view.say()
+                        else:
+                            self.view.notify_wrong_name(old_name)
                     else:
                         self.view.notify_wrong_name(old_name)
             elif decision in ADDRESS_COMMAND:
                 old_name = self.view.choose_address()
                 new_address = self.view.change_address()
                 for i in result:
-                    if i['Address'] == old_name:
-                        i['Address'] = new_address
-                        self.save()
-                        return self.view.say()
-                    elif i['Address'] == None:
-                        i['Address'] = new_address
-                        self.save()
-                        return self.view.say()
-                    else:
-                        self.view.notify_wrong_name(old_name)
+                    if 'del_input' in locals():
+                        if i["Id"] == del_input:
+                            if i['Address'] == old_name:
+                                i['Address'] = new_address
+                                self.save()
+                                return self.view.say()
+                            elif i['Address'] == None:
+                                i['Address'] = new_address
+                                self.save()
+                                return self.view.say()
+                            else:
+                                self.view.notify_wrong_name(old_name)
+                    elif 'del_input' not in locals():
+                        if i['Address'] == old_name:
+                            i['Address'] = new_address
+                            self.save()
+                            return self.view.say()
+                        elif i['Address'] == None:
+                            i['Address'] = new_address
+                            self.save()
+                            return self.view.say()
+                        else:
+                            self.view.notify_wrong_name(old_name)
             elif decision in EMAIL_COMMAND:
                 old_name = self.view.choose_email()
                 new_email = self.view.change_email()
                 for i in result:
-                    if i['E-mail'] == old_name:
-                        i['E-mail'] = new_email
-                        self.save()
-                        return self.view.say()
-                    elif i['E-mail'] == None:
-                        i['E-mail'] = new_email
-                        self.save()
-                        return self.view.say()
-                    elif old_name == '':
-                        i['E-mail'].append(new_email)
-                        self.save()
-                        return self.view.say()
-                    else:
-                        self.view.notify_wrong_name(old_name)
+                    if 'del_input' in locals():
+                        if i["Id"] == del_input:
+                            if i['E-mail'] == old_name:
+                                i['E-mail'] = new_email
+                                self.save()
+                                return self.view.say()
+                            elif i['E-mail'] == None:
+                                i['E-mail'] = new_email
+                                self.save()
+                                return self.view.say()
+                            elif old_name == '':
+                                i['E-mail'].append(new_email)
+                                self.save()
+                                return self.view.say()
+                            else:
+                                self.view.notify_wrong_name(old_name)
+                    elif 'del_input' not in locals():
+                        if i['E-mail'] == old_name:
+                            i['E-mail'] = new_email
+                            self.save()
+                            return self.view.say()
+                        elif i['E-mail'] == None:
+                            i['E-mail'] = new_email
+                            self.save()
+                            return self.view.say()
+                        elif old_name == '':
+                            i['E-mail'].append(new_email)
+                            self.save()
+                            return self.view.say()
+                        else:
+                            self.view.notify_wrong_name(old_name)
             elif decision in TAGS_COMMAND:
                 old_name = self.view.choose_tag()
+                new_tag = self.view.change_tag()
                 for i in result:
-                    if i['Tags'] == old_name or i['Tags'] == None:
-                        new_tag = self.view.change_tag()
-                        if len(new_tag) >= 1 and len(new_tag) <= 25:
-                            i['Tags'] = new_tag
-                            self.save()
-                            self.view.say()
+                    if 'del_input' in locals():
+                        if i["Id"] == del_input:
+                            if i['Tags'] == old_name or i['Tags'] == None:
+                                if len(new_tag) >= 1 and len(new_tag) <= 25:
+                                    i['Tags'] = new_tag
+                                    self.save()
+                                    self.view.say()
+                                else:
+                                    self.view.report_wrong_tag(new_tag)
+                            else:
+                                self.view.notify_wrong_name(old_name)
+                    elif 'del_input' not in locals():
+                        if i['Tags'] == old_name or i['Tags'] == None:
+                            if len(new_tag) >= 1 and len(new_tag) <= 25:
+                                i['Tags'] = new_tag
+                                self.save()
+                                self.view.say()
+                            else:
+                                self.view.report_wrong_tag(new_tag)
                         else:
-                            self.view.report_wrong_tag(new_tag)
-                        '''elif i['Tags'] == None:
-                            new_tag = self.view.change_tag()
-                            i['Tags'] = new_tag
-                            self.save()
-                            return self.view.say()'''
-                    else:
-                        self.view.notify_wrong_name(old_name)
+                            self.view.notify_wrong_name(old_name)
             elif decision in EXIT or decision == '7':
                 self.view.esc_e = False
                 self.view.close()
@@ -423,8 +456,8 @@ class CommandController:
                     if self.days_to_birthday(i["Birthday"]) <= n:
                         result.append(i)
             if len(result) > 0:
-                self.view.notify_next_birthdays(n, result)
                 self.show_find(result)
+                self.view.notify_next_birthdays(n, result)
             else:
                 self.view.notify_no_birthday(n)
         elif decision == 3:
@@ -432,7 +465,7 @@ class CommandController:
             result = self.model.book.find_value(name)
             if len(result) > 1:
                 self.show_find(result)
-                id_input = self.view.choose_id()
+                id_input = self.view.choose_id(result)
                 for i in result:
                     if i["Id"] == id_input:
                         days = self.days_to_birthday(i['Birthday'])
@@ -453,7 +486,7 @@ class CommandController:
             self.view.esc_e = False
             return self.view.close()
         else:
-            self.view.notify_wrong_name()
+            self.view.report_wrong_command()
 
     # @error_handler
 
@@ -479,23 +512,23 @@ class CommandController:
         find_v = self.view.choose_name_to_delete()
         find_v = find_v.lower()
         result = self.model.book.find_value(find_v)
-        for i in result:
-            if len(result) > 1:
+        if len(result) > 1:
+            for i in result:
                 self.show_find(result)
-                del_input = self.view.choose_id()
+                del_input = self.view.choose_id(result)
                 for i in self.model.book:
-                    if i["Id"] == del_input:  # i["Name"].lower() == find_v and
+                    if i["Id"] == del_input:
                         self.model.book.remove(i)
                         self.view.report_delete(find_v)
                         self.save()
-            elif len(result) == 1:
-                for i in result:
-                    if i["Name"].lower() == find_v:
-                        self.model.book.remove(i)
-                        self.view.report_delete(find_v)
-                        self.save()
-            else:
-                self.view.notify_wrong_name()
+        elif len(result) == 1:
+            for i in result:
+                if i["Name"].lower() == find_v:
+                    self.model.book.remove(i)
+                    self.view.report_delete(find_v)
+                    self.save()
+        else:
+            self.view.notify_wrong_name()
 
     # @error_handler
 
@@ -554,7 +587,7 @@ class CommandController:
         while flag:
             hashtag = self.view.get_hashtag()
             # добавление заметки в NotesBook
-            if len(line) > 0 and len(line) < 40:
+            if len(line) > 0 and len(line) < 30:
                 self.model.notes_book.add_note(text, hashtag.upper())
                 flag = False
                 self.view.notify_successfully_saving()

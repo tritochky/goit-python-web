@@ -29,7 +29,7 @@ class AddressBook(UserList):
             for value in item.values():
                 if (isinstance(value, str)):
                     value = value.lower()
-                    if value.find(f_value) != -1 and value == f_value:
+                    if value.find(f_value) != -1:
                         if item not in result:
                             result.append(item)
                             break
@@ -37,7 +37,7 @@ class AddressBook(UserList):
                     if (isinstance(value, list)):
                         for j in value:
                             j = j.lower()
-                            if j.find(f_value) != -1 and j == f_value:
+                            if j.find(f_value) != -1:
                                 result.append(item)
                                 break
         return result
