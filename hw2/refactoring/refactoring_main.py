@@ -1,60 +1,25 @@
-#import os
-#import pathlib
-#import pickle
-#import re
-
-#from datetime import datetime, timedelta, date
-#from classbook import*
-#from clean import*
 from controller import*
 from models import*
-#from notes_book import*
 from views import*
 
 
 STARTING_COMMANDS = {('load', 'дщфв', '1'): 'load',
                      ('new', 'туц', '2'): 'new',
                      ('exit', 'esc', 'close', 'учше', '3'): 'exit'}
-'''
-YES_COMMANDS = ['y', 'yes', 'нуі', 'н', 'да', 'д']
-NO_COMMANDS = ['n', 'not', 'no', 'нет', 'тщ', 'тще', 'т']
-
-ADD = ['a', 'ad', 'addd', 'asd', 'asdd', 'sdd', 'adf', 'фів', 'івв',
-       'фівв', 'фввв', 'фва', 'вв', 'ыва', 'фвы', 'фыв', 'явв', 'фв']
-CHANGE = ['chane', 'chnge', 'cange', 'chenge', 'hange', 'chng', 'cchenge', 'chhenge', 'cheenge', 'chaange',
-          'сменить', 'chang', 'срутпу', 'срутп', 'менять', 'изменить', 'срфтп', 'рсфтпу', 'срутпу', 'cheng']
-FIND = ['fnd', 'ind', 'fid', 'fin', 'faind', 'fand', 'ffind', 'fiind', 'finnd', 'findd',
-        'seek', 'look', 'look for', 'атв', 'афтв', 'штв', 'афт', 'поиск', 'искать', 'найти', 'шштв']
-HELP = ['&', '?', 'hlp', 'what', 'why', 'where', 'how', 'elp', 'hep', 'hel', 'healp',
-        'halp', 'hhelp', 'heelp', 'hellp', 'helpp', 'рфдз', 'рдз', 'руз', 'руд', 'помощь']
-DELETE = ['вуд', '-', 'del', 'вудуеу', 'вуфдуеу', 'dealete', 'elete', 'elet',
-          'delet', 'dlte', 'dlt', 'lete', 'dealete', 'вудуе', 'удалить', 'pop']
-BIRTHDAY = ['lf', 'birsday', 'bersday', 'bezday', 'bethday', 'birzday', 'bearsday', 'birthdey', 'beersday', 'brthday',
-            'иууксвфн', 'ишквфн', 'др', 'рождение', 'бездей', 'бирсдей', 'днюха', 'birthday people', 'birthday boy',
-            'birthday girl', 'birthda', 'birtda', 'birth', 'иуервфн', 'иуівфн', 'birt']
-CLEAN = ['cleen', 'clan', 'clin', 'cleane', 'cleene', 'klin', 'klean', 'lean', 'clen',
-         'kleen', 'суф', 'лдуут', 'лдуфт', 'сдуфту', 'клн', 'клин', 'разобрать', 'мусор']
-SHOW = ['ырща', 'ырщцу', 'showe', 'schow', 'schove', 'chov', 'shove', 'schov',
-        'schowe', 'how', 'sho', 'shouv', 'шов', 'ірщцу', 'показать', 'рщц', 'ірщм']
-EXIT = ['exit', 'esc', 'close', 'учше']
 
 
 def error_handler(func):
     def inner(*args):
-        view = ConsoleView()
         try:
-            result = func(*args)
-            return result
+            return func(*args)
         except:
             print('я внутри error_handler ')
-            result = view.report_input_error()
-            return result
+            print(
+                'Wrong input! Type exact command you want to do,"exit" to exit or "help" for list of commands.')
     return inner
-'''
-
-# @error_handler
 
 
+@error_handler
 def main():
     controller = CommandController()
     view = ConsoleView()

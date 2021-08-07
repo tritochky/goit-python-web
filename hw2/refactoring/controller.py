@@ -656,26 +656,6 @@ class CommandController:
         self.view.notify_finish()
 
 
-'''
-ANSWEARS = {'add': CommandController.add, 'ad': CommandController.add, '+': CommandController.add, 'фвв': CommandController.add,
-            'change': CommandController.change, 'срфтпу': CommandController.change,
-            'close': exit, 'exit': exit, 'учше': exit,
-            'clear': CommandController.clear, 'сдуфк': CommandController.clear,
-            'find': CommandController.find, 'аштв': CommandController.find,
-            'help': CommandController.help_func, 'рудз': CommandController.help_func, 'хелп': CommandController.help_func,
-            'save': CommandController.save, 'іфму': CommandController.save, 'ыфму': CommandController.save,
-            'show': CommandController.show, 'ырщц': CommandController.show, 'ірщц': CommandController.show,
-            'delete': CommandController.delete, 'del': CommandController.delete, 'вуд': CommandController.delete, 'вудуеу': CommandController.delete,
-            'birthday': CommandController.birthday, 'ишкервфн': CommandController.birthday,
-            'add note': CommandController.add_note, 'фвв тщеу': CommandController.add_note,
-            'delete note': CommandController.delete_note, 'вудуеу тщеу': CommandController.delete_note,
-            'edit note': CommandController.edit_note, 'увше тщеу': CommandController.edit_note,
-            'find note': CommandController.find_note, 'аштв тщеу': CommandController.find_note,
-            'sort notes': CommandController.sort_notes, 'ыщке тщеуы': CommandController.sort_notes,
-            'show notes': CommandController.show_notes, 'ырщц тщеуы': CommandController.show_notes,
-            'clean': CommandController.clean_folder, 'сдуфт': CommandController.clean_folder}
-'''
-
 STARTING_COMMANDS = {('load', 'дщфв', '1'): 'load',
                      ('new', 'туц', '2'): 'new',
                      ('exit', 'esc', 'close', 'учше', '3'): 'exit'}
@@ -700,7 +680,7 @@ CLEAN = ['cleen', 'clan', 'clin', 'cleane', 'cleene', 'klin', 'klean', 'lean', '
          'kleen', 'суф', 'лдуут', 'лдуфт', 'сдуфту', 'клн', 'клин', 'разобрать', 'мусор']
 SHOW = ['ырща', 'ырщцу', 'showe', 'schow', 'schove', 'chov', 'shove', 'schov',
         'schowe', 'how', 'sho', 'shouv', 'шов', 'ірщцу', 'показать', 'рщц', 'ірщм']
-EXIT = ['exit', 'esc', 'close', 'ex', 'учше']
+EXIT = ['exit', 'esc', 'close', 'ex', 'учше', 'уч']
 
 
 NAME_COMMAND = ['name', 'тфьу', '1']
