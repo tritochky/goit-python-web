@@ -571,9 +571,11 @@ class ConsoleView(ViewInterface):
 
     def get_path_to_clean(self):
         print(100*"_")
+        print('')
         print('Welcome to clean folder instrument!')
         print(100*"_")
-        print('Please enter path to clean and structurise.')
+        print('')
+        print('Please enter path to clean and structurise.\n')
         return str(input())
 
     def notify_finish(self):
