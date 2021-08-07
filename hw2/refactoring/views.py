@@ -1,5 +1,5 @@
 # from classbook import*  # Name
-#from modals import*
+#from models import*
 
 
 class ViewInterface:
@@ -486,7 +486,7 @@ class ConsoleView(ViewInterface):
 
     def notify_wrong_hashtag(self):
         print('')
-        print('Please no more than 30 symbols\n')
+        print('Your hashtag has more than 30 symbols\n')
 
     def get_hashtag_to_delete(self):
         print('')
@@ -495,17 +495,45 @@ class ConsoleView(ViewInterface):
         return str(input())
 
     def notify_successfully_deleting(self, hashtag):
+        print('')
         print(f"The note with hashtag '{hashtag}' is deleted")
 
     def get_hashtag_to_edit(self):
-        print("Please input a hashtag of note that you would like to edit:")
+        print('')
+        print("Please input a hashtag of note that you would like to edit:\n")
         return str(input())
 
+    # note - список: note[0] -хeштег, note[1] - текст заметки
+    def show_note_to_edit(self, note):
+        print('')
+        print('You want to edit the following note:\n')
+        print(note)
+        print('')
+        print('You can do it for every line.\n')
+
+    def start_to_edit_note(self, line):
+        print('')
+        print('Your old note:\n')
+        print(line)
+        print('')
+        print('Type new note please:\n')
+        return input()
+
+    def notify_editing_result(self):
+        print('')
+        print('This note is edited')
+
+    def notify_unsuccessful_editing(self):
+        print('')
+        print('Such note is absent')
+
     def get_keyword_to_search(self):
-        print('Please input keyword for search:')
+        print('')
+        print('Please input keyword for search in tags:\n')
         return str(input())
 
     def notify_result_of_search(self):
+        print('')
         print('THE RESULTS OF SEARCH:')
 
     def show_result_of_search(self, result):
@@ -513,6 +541,7 @@ class ConsoleView(ViewInterface):
         print("The search is sucessfully finished")
 
     def notify_wrong_search(self):
+        print('')
         print("Not found keyword")
 
     def get_typ_of_sort(self):
@@ -526,16 +555,18 @@ class ConsoleView(ViewInterface):
         print('')
         return str(input())
 
-    def show_sorted_notes(self, search_type):
-        #notes_book = VariableModel()
+    def show_sorted_notes(self, search_type, notes_book):
+        print('')
         print('The sorted Notes are:')
-        print(self.notes_book.sort_notes(search_type))
+        print(notes_book.sort_notes(search_type))
         print('The end of sorted Notes')
 
     def show_all_notes(self):
-        #notes_book = VariableModel()
+        print('')
         print('Your Notes Book:')
-        print(self.notes_book)
+
+    def print_notes_book(self, notesbook):
+        print(notesbook)
         print("The end of Notes Book")
 
     def get_path_to_clean(self):

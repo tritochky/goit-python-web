@@ -157,7 +157,7 @@ class CommandController:
                     record1.user['Address'] = address
                     break
                 else:
-                    #lenght = len(address)
+                    # lenght = len(address)
                     self.view.report_wrong_address(address)
             elif decision in EXIT:
                 self.model.book.add_record(record1.user)
@@ -223,17 +223,12 @@ class CommandController:
             decision = decision.lower()
             if decision in NAME_COMMAND:
                 new_name = self.view.change_name()
-                # if len(result) > 1:
-                # self.show_find(result)
-                #del_input = self.view.choose_id(result)
                 for i in result:
                     if 'del_input' in locals():
                         if i["Id"] == del_input:
                             i['Name'] = new_name
                             self.save()
                             return self.view.say()
-                # elif len(result) == 1:
-                    # for i in result:
                     elif 'del_input' not in locals():
                         i['Name'] = new_name
                         self.save()
@@ -556,13 +551,9 @@ class CommandController:
         self.view.notify_addressbook()
         # Печать шапки с названием столбцов
         self.view.print_top()
-        # if number == 0 or number == None:
-        #number = 10
         iter = self.model.book.iterator(number)
         for i in iter:
             self.view.print_one_contact(i)
-            # print(i)
-            # self.view.show_pages_end()
         self.view.notify_end_addressebook()
 
     # Команды для Handler для работы с NotesBook
@@ -587,10 +578,11 @@ class CommandController:
         while flag:
             hashtag = self.view.get_hashtag()
             # добавление заметки в NotesBook
-            if len(line) > 0 and len(line) < 30:
+            if len(hashtag) > 0 and len(hashtag) < 30:
                 self.model.notes_book.add_note(text, hashtag.upper())
+                self.save()
                 flag = False
-                self.view.notify_successfully_saving()
+                return self.view.notify_successfully_saving()
             else:
                 self.view.notify_wrong_hashtag()
 
@@ -605,7 +597,26 @@ class CommandController:
 
     def edit_note(self):
         hashtag = self.view.get_hashtag_to_edit().upper()
-        self.model.notes_book.edit_note(hashtag)
+        for note in self.model.notes_book:
+            if note[0] == hashtag:
+                self.view.show_note_to_edit(note[1])
+                # находим нужную заметку с заданным ключевым словом
+                # и изменяем текст заметки
+                lines = note[1].split('\n')
+                counter = 0
+                for line in lines:
+                    new_line = self.view.start_to_edit_note(line)
+                    if new_line:
+                        lines.pop(counter)
+                        lines.insert(counter, new_line)
+                    counter += 1
+                note[1] = '\n'.join(lines)
+                new_note = note
+                self.model.notes_book.edit_note(new_note)
+                self.view.notify_editing_result()
+                break
+        else:
+            self.view.notify_unsuccessful_editing()
 
     # @error_handler
 
@@ -621,13 +632,16 @@ class CommandController:
     # @error_handler
 
     def sort_notes(self):
-        self.search_type = self.view.get_typ_of_sort()
-        self.view.show_sorted_notes(self.search_type)
+        search_type = self.view.get_typ_of_sort()
+        # self.view.show_sorted_notes(search_type)
+        self.view.print_notes_book(
+            self.model.notes_book.sort_notes(search_type))
 
     # @error_handler
 
     def show_notes(self):
         self.view.show_all_notes()
+        self.view.print_notes_book(self.model.notes_book)
 
     # Конец конец команд для NotesBook
 
