@@ -1,8 +1,8 @@
 import pathlib
 import pickle
 
-from classbook import AddressBook
-from notes_book import *
+from .classbook import AddressBook
+from .notes_book import *
 
 
 class VariableModel:
