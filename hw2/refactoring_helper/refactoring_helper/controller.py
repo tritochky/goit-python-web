@@ -551,7 +551,7 @@ class CommandController:
         self.view.notify_addressbook()
         # Печать шапки с названием столбцов
         self.view.print_top()
-        iter = self.model.book.iterator(number)
+        iter = self.view.iterator(number)
         for i in iter:
             self.view.print_one_contact(i)
         self.view.notify_end_addressebook()
