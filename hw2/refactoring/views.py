@@ -1,7 +1,3 @@
-# from classbook import*  # Name
-#from models import*
-
-
 class ViewInterface:
     def greet(self):
         raise NotImplementedError('Func "greet" was not implemented')
