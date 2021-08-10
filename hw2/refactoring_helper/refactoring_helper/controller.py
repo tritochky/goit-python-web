@@ -1,13 +1,13 @@
-﻿import os
+import os
 import pathlib
 import re
 
 from datetime import datetime, timedelta, date
-from classbook import*
-from clean import*
-from models import*
-from notes_book import*
-from views import*
+from .classbook import*
+from .clean import*
+from .models import*
+from .notes_book import*
+from .views import*
 
 
 class CommandController:
