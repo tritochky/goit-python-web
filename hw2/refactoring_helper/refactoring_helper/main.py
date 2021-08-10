@@ -1,6 +1,6 @@
-from controller import*
-from models import*
-from views import*
+from .controller import*
+from .models import*
+from .views import*
 
 
 STARTING_COMMANDS = {('load', 'дщфв', '1'): 'load',
