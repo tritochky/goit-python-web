@@ -1,4 +1,7 @@
 class ViewInterface:
+    def iterator(self):
+        raise NotImplementedError('Func "iterator" was not implemented')
+    
     def greet(self):
         raise NotImplementedError('Func "greet" was not implemented')
 
@@ -21,6 +24,26 @@ class ViewInterface:
 class ConsoleView(ViewInterface):
     def __init__(self):
         self.esc_e = True
+        
+    def iterator(self, data, n):
+        counter = 0
+        result = ""
+        for i in data:
+            result += f'|{i["Id"]:^5}|{i["Name"]:^23}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":^15}|{str(i["Birthday"]) if i["Birthday"] else " ":^11}|{i["Address"] if i["Address"] else " ":^50}|{i["E-mail"] if i["E-mail"] else " ":^30}|{i["Tags"] if i["Tags"] else " ":^26}|\n'
+            if len(i["Phones"]) > 1:
+                for elem in i["Phones"][1:]:
+                    result += f'|     |                       |{elem: ^15}|           |                                                  |                              |                          | \n'
+            result += f"{168*'_'}\n"
+            # конец записи строки с описанием 1 контакта
+            counter += 1
+            if counter == n:
+                result = result.rstrip("\n")
+                yield result
+                result = ""
+                counter = 0
+        if result:
+            result = result.rstrip("\n")
+            yield result
 
     def greet(self):
         print(100*'_')
