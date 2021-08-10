@@ -29,7 +29,7 @@ class AddressBook(UserList):
                                 result.append(i)
                                 break
         return result
-
+'''
     def iterator(self, n):
         counter = 0
         result = ""
@@ -49,7 +49,7 @@ class AddressBook(UserList):
         if result:
             result = result.rstrip("\n")
             yield result
-
+'''
 
 class Record:
     def __init__(self, name, id_n, birthday=None, address=None, email=None, tags=None):
