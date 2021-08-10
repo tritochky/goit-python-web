@@ -2,7 +2,7 @@ import re
 
 from collections import UserList
 from datetime import datetime
-from views import ConsoleView
+from .views import ConsoleView
 
 
 class AddressBook(UserList):
