@@ -1,7 +1,7 @@
 class ViewInterface:
-    def iterator(self):
-        raise NotImplementedError('Func "iterator" was not implemented')
-    
+    def show_record(self):
+        raise NotImplementedError('Func "show_record" was not implemented')
+
     def greet(self):
         raise NotImplementedError('Func "greet" was not implemented')
 
@@ -24,8 +24,8 @@ class ViewInterface:
 class ConsoleView(ViewInterface):
     def __init__(self):
         self.esc_e = True
-        
-    def iterator(self, data, n):
+
+    def show_record(self, data, n):
         counter = 0
         result = ""
         for i in data:
@@ -600,3 +600,4 @@ class ConsoleView(ViewInterface):
     def notify_finish(self):
         print('')
         print('Everything done! Please check yor folder!')
+
