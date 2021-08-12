@@ -1,16 +1,11 @@
+import pathlib
 import pickle
 
-try:
-    from .classbook import *
-except:
-    from classbook import *
-try:
-    from .notes_book import *
-except:
-    from notes_book import *
+from .classbook import AddressBook
+from .notes_book import *
 
 
-class VariableModal:
+class VariableModel:
     def __init__(self, path):
         self.book = AddressBook()
         self.notes_book = NotesBook()

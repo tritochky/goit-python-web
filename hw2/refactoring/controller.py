@@ -499,7 +499,7 @@ class CommandController:
     # @error_handler
 
     def clear(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system('cls' if os.name=='nt' else 'clear')
 
     # @error_handler
 

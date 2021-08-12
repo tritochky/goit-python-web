@@ -23,7 +23,7 @@ class Cleaner:
         if name_list_dir != 'archives':
             shutil.move(path_dist, d)
         else:
-            d_w = user_input + '\\ '+ name_list_dir + '\\' + name_w
+            d_w = user_input + '\\ ' + name_list_dir + '\\' + name_w
             shutil.move(path_dist, d)
             shutil.unpack_archive(d, d_w)
             rem_ar = pathlib.Path(d)
@@ -44,7 +44,8 @@ class Cleaner:
     def print_recursive(self, path, user_input):
         audio_suf = ['.amr', '.ogg', '.wav', '.mp3']
         image_suf = ['.svg', '.jpg', '.jpeg', '.png']
-        document_suf = ['.doc', '.docx', '.xlsx', '.pdf', '.txt', '.pptx', '.rtf', '.xls']
+        document_suf = ['.doc', '.docx', '.xlsx',
+                        '.pdf', '.txt', '.pptx', '.rtf', '.xls']
         archive_suf = ['.rar', '.zip', '.gz', '.tar']
         video_suf = ['.avi', '.mp4', '.mov', '.mkv', '.wmv']
         if path.exists():
@@ -54,27 +55,27 @@ class Cleaner:
                         if element.suffix in audio_suf:
                             name_list_dir = 'audio'
                             self.change_dist(element, path,
-                                        name_list_dir, user_input)
+                                             name_list_dir, user_input)
                         elif element.suffix in image_suf:
                             name_list_dir = 'images'
                             self.change_dist(element, path,
-                                        name_list_dir, user_input)
+                                             name_list_dir, user_input)
                         elif element.suffix in document_suf:
                             name_list_dir = 'documents'
                             self.change_dist(element, path,
-                                        name_list_dir, user_input)
+                                             name_list_dir, user_input)
                         elif element.suffix in archive_suf:
                             name_list_dir = 'archives'
                             self.change_dist(element, path,
-                                        name_list_dir, user_input)
+                                             name_list_dir, user_input)
                         elif element.suffix in video_suf:
                             name_list_dir = 'video'
                             self.change_dist(element, path,
-                                        name_list_dir, user_input)
+                                             name_list_dir, user_input)
                         else:
                             name_list_dir = 'unknown'
                             self.change_dist(element, path,
-                                        name_list_dir, user_input)
+                                             name_list_dir, user_input)
                     else:
                         self.print_recursive(element, user_input)
 
@@ -86,4 +87,3 @@ class Cleaner:
                     shutil.rmtree(element)
                 else:
                     self.delete_dir(element)
-
