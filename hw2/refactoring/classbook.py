@@ -7,16 +7,6 @@ from .views import ConsoleView
 
 class AddressBook(UserList):
 
-    '''def __str__(self) -> str:
-        result = ""
-        for i in self.user:
-            result += f'|{i["Id"]:<5}| {i["Name"]:<25}| { i["Phones"][0] if len(i["Phones"])>=1 else " ":<15} | {str(i["Birthday"]) if i["Birthday"] else " ":<11}|{i["Address"]if i["Address"] else " ":<30}|  {i["E-mail"]if i["E-mail"] else " ":<30}| {i["Tags"] if i["Tags"] else " ":<15}|\n'
-            if len(i["Phones"]) > 1:
-                for elem in i["Phones"][1:]:
-                    result += f'|     |                          | {elem: <15} |            |                              |                                |                | \n'
-            result += f"{145*'_'}\n"
-        return result'''
-
     data = []
 
     def add_record(self, record):
@@ -41,27 +31,7 @@ class AddressBook(UserList):
                                 result.append(item)
                                 break
         return result
-'''
-    def iterator(self, n):
-        counter = 0
-        result = ""
-        for i in self:
-            result += f'|{i["Id"]:^5}|{i["Name"]:^23}|{i["Phones"][0] if len(i["Phones"])>=1 else " ":^15}|{str(i["Birthday"]) if i["Birthday"] else " ":^11}|{i["Address"] if i["Address"] else " ":^50}|{i["E-mail"] if i["E-mail"] else " ":^30}|{i["Tags"] if i["Tags"] else " ":^26}|\n'
-            if len(i["Phones"]) > 1:
-                for elem in i["Phones"][1:]:
-                    result += f'|     |                       |{elem: ^15}|           |                                                  |                              |                          | \n'
-            result += f"{168*'_'}\n"
-            # конец записи строки с описанием 1 контакта
-            counter += 1
-            if counter == n:
-                result = result.rstrip("\n")
-                yield result
-                result = ""
-                counter = 0
-        if result:
-            result = result.rstrip("\n")
-            yield result
-'''
+
 
 class Record:
     def __init__(self, name, id_n, birthday=None, address=None, email=None, tags=None):
@@ -156,8 +126,7 @@ class Phone(Field):
         else:
             view.report_wrong_phone()
 
-    # def __str__(self):
-        # return self.phone
+
     def __repr__(self):
         return self.phone
 
