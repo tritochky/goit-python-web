@@ -1,8 +1,9 @@
-﻿import pathlib
+import pathlib
 import re
 import shutil
 import time
 from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
 
 
 def handle_image(path: pathlib.Path, root_folder: pathlib.Path):
@@ -98,17 +99,13 @@ def split_extension(file_name: str):
 
 
 def scan(folder, FOLDERS, REGISTERED_EXTENSIONS):
-    with ThreadPoolExecutor(max_workers=3) as executor:
+    WORKERS = 2
+    with ThreadPoolExecutor(max_workers=WORKERS) as executor:
         for item in folder.iterdir():
             if item.is_dir():
                 if item.name not in ("images", "videos", "documents", "archives"):
-                    future = executor.submit(
-                        scan, item, FOLDERS, REGISTERED_EXTENSIONS)
-                    future.result()
-                    # FOLDERS.append(item)
-                    # scan(item)
+                    executor.submit(scan, item, FOLDERS, REGISTERED_EXTENSIONS)
                 continue
-
             name, extension = split_extension(file_name=item.name)
             new_name = normalize(name)
             new_item = folder / ".".join([new_name, extension.lower()])
@@ -126,15 +123,25 @@ def scan(folder, FOLDERS, REGISTERED_EXTENSIONS):
 
 def remove_files(folder):
     for file in IMAGES:
-        handle_image(file, folder)
+        slave1 = Thread(target=handle_image, args=(file, folder))
+        slave1.start()
+        slave1.join()
     for file in VIDEO:
-        handle_video(file, folder)
+        slave2 = Thread(target=handle_video, args=(file, folder))
+        slave2.start()
+        slave2.join()
     for file in DOCUMENTS:
-        handle_document(file, folder)
+        slave3 = Thread(target=handle_document, args=(file, folder))
+        slave3.start()
+        slave3.join()
     for file in ARCHIVES:
-        handle_archive(file, folder)
+        slave4 = Thread(target=handle_archive, args=(file, folder))
+        slave4.start()
+        slave4.join()
     for f in FOLDERS[::-1]:
-        handle_folder(f)
+        slave5 = Thread(target=handle_folder, args=(folder))
+        slave5.start()
+        slave5.join()
 
 
 def main(folder: pathlib.Path) -> None:
