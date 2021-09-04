@@ -125,23 +125,23 @@ def remove_files(folder):
     for file in IMAGES:
         slave1 = Thread(target=handle_image, args=(file, folder))
         slave1.start()
-        slave1.join()
     for file in VIDEO:
         slave2 = Thread(target=handle_video, args=(file, folder))
-        slave2.start()
-        slave2.join()
+        slave2.start()       
     for file in DOCUMENTS:
         slave3 = Thread(target=handle_document, args=(file, folder))
-        slave3.start()
-        slave3.join()
+        slave3.start()        
     for file in ARCHIVES:
         slave4 = Thread(target=handle_archive, args=(file, folder))
-        slave4.start()
-        slave4.join()
+        slave4.start()        
     for f in FOLDERS[::-1]:
         slave5 = Thread(target=handle_folder, args=(folder))
-        slave5.start()
-        slave5.join()
+        slave5.start()        
+    slave1.join()
+    slave2.join()
+    slave3.join()
+    slave4.join()
+    slave5.join()
 
 
 def main(folder: pathlib.Path) -> None:
