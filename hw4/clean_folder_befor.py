@@ -2,7 +2,6 @@
 import re
 import shutil
 import time
-#from concurrent.futures import ThreadPoolExecutor
 
 
 def handle_image(path: pathlib.Path, root_folder: pathlib.Path):
@@ -129,7 +128,7 @@ def remove_files(folder):
         handle_folder(f)
 
 
-def main(folder: pathlib.Path) -> None:
+def main(folder):
     scan(folder)
     remove_files(folder)
 
